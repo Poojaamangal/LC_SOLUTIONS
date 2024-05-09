@@ -1,0 +1,49 @@
+//T.C : O(nlogn)
+//S.C : O(1)
+class Solution {
+public:
+    long long maximumHappinessSum(vector<int>& happiness, int k) {
+        int n = happiness.size();
+        sort(happiness.begin(),happiness.end(),greater<int>());
+        long long r =0;
+        int c=0;
+        for(int i=0;i<k;i++){
+
+          r+= max(happiness[i] - c,0);
+          c++;
+        }
+         return r;
+    }
+};
+
+
+//using maxheap 
+//T.C : O(nlogn)
+//S.C : O(n)
+class Solution {
+public:
+    long long maximumHappinessSum(vector<int>& happiness, int k) {
+        long long r = 0;
+        
+        int c = 0;
+        
+        priority_queue<int> pq; //max-heap
+        
+        for(int &hap : happiness) {
+            pq.push(hap);
+        }
+        
+        for(int i = 0; i < k; i++) {
+            
+            int hap = pq.top();
+            pq.pop();
+            
+            r += max(hap - c, 0);
+            
+            c++;
+            
+        }
+        
+        return r;
+    }
+};
